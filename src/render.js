@@ -6,18 +6,19 @@ const PPTX = require('nodejs-pptx');
 const fs = require('fs')
 var FormData = require('form-data');
 
-const container = document.getElementById('slides');
-const openButton = document.getElementById('openPres')
+const menuSlides = document.getElementById('main-slides');
+const menuButton = document.getElementById('menu_button_load')
+const domain = "http://localhost:5000";
 global.filepath = undefined;
 global.isMainDialogOpen = false;
 
 async function getFileScreenShots(file) {
     var formData = new FormData();
     formData.append('file', fs.createReadStream(global.filepath));
-    formData.submit('http://localhost:5000', function(err, res) {
+    formData.submit(domain, function(err, res) {
         res.on('data', function (data) {
             var jsonObject = JSON.parse(data);
-            container.innerHTML = '';
+            menuSlides.innerHTML = '';
             for(var i = 0; i < jsonObject.length; i++) {
                 console.log(jsonObject[i])
                 appendImageToScreen(jsonObject[i])
@@ -32,11 +33,11 @@ async function appendImageToScreen(image_name) {
     var img = document.createElement("img");
     img.style.width = '25vw';
     img.style.height = 'auto';
-    img.src = "http://localhost:5000"+"/images/"+image_name+'?dummy='+date.getTime();
-    container.appendChild(img);
+    img.src = domain+"/images/"+image_name+'?dummy='+date.getTime();
+    menuSlides.appendChild(img);
 }
 
-openButton.addEventListener('click', () => {
+menuButton.addEventListener('click', () => {
     if(global.isMainDialogOpen) {
         return
     }
