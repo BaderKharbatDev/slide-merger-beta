@@ -1,31 +1,36 @@
 :root {
   --topbar_height: 150px;
   --margin: 15px;
-  --topbar_helper: 165px;
+  --gap: 210px;
 }
 
 body {
   height: 100%;
   background-color: rgb(228, 205, 205);
-  margin: var(--margin);
+  padding: var(--margin);
 }
 
 div {
-  margin-top: var(--margin);
   outline: 1px solid black;
-  border-radius: 15px;
+  border-radius: 10px;
 }
 
 #topbar {
   background-color: white;
-  width: 100%;
+
+  top: var(--margin);
   height: var(--topbar_height);
+
+  left: var(--margin);
+  right: var(--margin);
+
+  position: absolute;
 }
 
 #bottom-container {
   background-color: rgb(255, 255, 255);
 
-  top: var(--topbar_helper);
+  top: var(--gap);
   bottom: var(--margin);
 
   left: var(--margin);
@@ -33,3 +38,24 @@ div {
 
   position: absolute;
 }
+
+.slides {
+  height: 100%;
+  flex-grow: 1;
+  margin-right: var(--margin);
+}
+
+.menu {
+  height: 100%;
+
+  float: right;
+  width: 200px;
+  text-align: center;
+}
+
+.row {
+  padding: var(--margin);
+  display: flex;
+}
+
+
