@@ -1,0 +1,35 @@
+:root {
+  --topbar_height: 150px;
+  --margin: 15px;
+  --topbar_helper: 165px;
+}
+
+body {
+  height: 100%;
+  background-color: rgb(228, 205, 205);
+  margin: var(--margin);
+}
+
+div {
+  margin-top: var(--margin);
+  outline: 1px solid black;
+  border-radius: 15px;
+}
+
+#topbar {
+  background-color: white;
+  width: 100%;
+  height: var(--topbar_height);
+}
+
+#bottom-container {
+  background-color: rgb(255, 255, 255);
+
+  top: var(--topbar_helper);
+  bottom: var(--margin);
+
+  left: var(--margin);
+  right: var(--margin);
+
+  position: absolute;
+}
