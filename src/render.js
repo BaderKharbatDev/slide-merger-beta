@@ -7,6 +7,7 @@ const fs = require('fs')
 var FormData = require('form-data');
 
 const menuSlides = document.getElementById('main-slides');
+const WorkplaceSlides = document.getElementById('sub-slides')
 const menuButton = document.getElementById('menu_button_load')
 const menuWorkplaceButton = document.getElementById('menu_button_workplace_pptx')
 const domain = "http://localhost:5000";
@@ -24,11 +25,36 @@ async function getFileScreenShots(file, isMainSlide) {
             if(isMainSlide) { //add images to main
                 menuSlides.innerHTML = '';
                 for(var i = 0; i < jsonObject.length; i++) {
-                    console.log(jsonObject[i])
                     appendImageToMain(jsonObject[i])
                 }
             } else { //add images to sub
+                //make div
+                var workspace_pres = document.createElement("div");
+                workspace_pres.className = 'workspace_div';
+                //make title
+                var workspace_title = document.createElement('div');
+                workspace_title.className = 'workspace_div_title';
 
+                var title = document.createElement('p')
+                title.innerHTML = 'PPTX FileName'
+                var button = document.createElement('button')
+                title.style = 'margin:0px;'
+                button.innerHTML = 'X'
+                workspace_title.appendChild(title)
+                workspace_title.appendChild(button)
+
+                //make slide div
+                var workspace_div = document.createElement('div');
+                workspace_div.className = 'workspace_div_slides';
+                //add them
+                workspace_pres.appendChild(workspace_title);
+                workspace_pres.appendChild(workspace_div);
+
+                WorkplaceSlides.appendChild(workspace_pres);
+
+                for(var i = 0; i < jsonObject.length; i++) {
+                    appendImageToSub(jsonObject[i], workspace_div)
+                }
             }
        });
         res.resume();
@@ -44,14 +70,12 @@ async function appendImageToMain(image_name) {
     menuSlides.appendChild(img);
 }
 
-async function appendImageToSub(image_name, workplace_index) {
+async function appendImageToSub(image_name, slide_div) {
     var date = new Date()
     var img = document.createElement("img");
     img.src = domain+"/images/"+image_name+'?dummy='+date.getTime();
-
-    // var tempSlide = document.getElementById('test');
-    // img.className = "workspace_div_slides_img";
-    // tempSlide.appendChild(img);
+    img.className = "workspace_div_slides_img";
+    slide_div.appendChild(img);
 }
 
 
